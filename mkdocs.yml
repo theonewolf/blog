@@ -1,14 +1,36 @@
-site_name: Wolfgang Richter
+copyright: Copyright &copy; 2021 Wolfgang Richter
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/wolfgang-richter-b4730934/
+    - icon: fontawesome/brands/github
+      link: https://github.com/theonewolf
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/theonewolf
+    - icon: fontawesome/brands/twitch
+      link: https://twitch.tv/theonewolf87
+    - icon: fontawesome/brands/flickr
+      link: https://www.flickr.com/photos/29905928@N05/
+    - icon: fontawesome/brands/reddit-alien
+      link: https://www.reddit.com/user/theonewolf
+
+markdown_extensions:
+  - meta
+  - toc:
+      permalink: true
+
+plugins:
+  - search:
+      prebuild_index: true
 
 theme:
   features:
+    - header.autohide
     - navigation.instant
     - navigation.sections
     - navigation.tabs
     - toc.integrate
   name: material
 
-markdown_extensions:
-  - meta
-  - toc:
-      permalink: true
+site_name: Wolfgang Richter
