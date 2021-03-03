@@ -31,6 +31,15 @@ theme:
     - navigation.sections
     - navigation.tabs
     - toc.integrate
+  favicon: assets/wolf-favicon.png
+  font:
+    text: Montserrat
+    code: Source Code Pro
+  logo: assets/wolf-logo.png
   name: material
+  palette:
+    primary: black
+    accent: light blue
+    scheme: preference
 
 site_name: Wolfgang Richter
