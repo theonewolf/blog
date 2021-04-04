@@ -15,10 +15,19 @@ extra:
     - icon: fontawesome/brands/reddit-alien
       link: https://www.reddit.com/user/theonewolf
 
+extra_javascript:
+  - js/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
 markdown_extensions:
   - meta
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.smartsymbols
   - toc:
       permalink: true
+  - smarty
 
 plugins:
   - search:
@@ -33,7 +42,7 @@ theme:
     - toc.integrate
   favicon: assets/wolf-favicon.png
   font:
-    text: Montserrat
+    text: MathJax TeX
     code: Source Code Pro
   logo: assets/wolf-logo.png
   name: material
