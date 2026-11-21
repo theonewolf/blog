@@ -116,7 +116,10 @@ its most basic level, a block cipher is a bijective function mapping $n$-bit
 values into other $n$-bit values.  Because it is bijective, if you feed a
 counter ($0, 1, 2, \dots$) and a key into a block cipher, each distinct counter
 value produces a distinct output---enumerating the entire space in pseudorandom
-order without repetition.
+order without repetition.  The counter is necessary because feeding each output
+back into the cipher only walks one of its disjoint cycles and can repeat
+early (for AES specifically, every encryption is an even permutation in
+$A_{2^{128}}$, so a single full-length cycle is mathematically impossible).
 
 To refresh ourselves, the definition of a bijective function $f\colon X \to Y$
 is:
