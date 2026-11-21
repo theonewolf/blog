@@ -68,9 +68,13 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
 
+extra_css:
+  - css/ffsem_demo.css
+
 extra_javascript:
   - js/config.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - js/ffsem_demo.js
 
 extra:
   social:
