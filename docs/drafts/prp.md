@@ -6,7 +6,7 @@ permutation of the entire 32-bit space?
 
 For just 32-bit integers, perhaps we could enumerate all of them---that would
 just take $2^{32} \times 32$ bits $= 16$ Gibibytes of RAM.  Possible on today's
-laptops, and desktops.
+laptops and desktops.
 
 But what about all 64-bit integers (you'd need $128$ Exbibytes)?  Not possible
 even with the huge RAM of cloud servers!  And don't even think about it for
@@ -17,7 +17,7 @@ What if I told you there is a method of doing this in
 space?  Essentially, just the size of two integers.  Worst case two 128-bit
 (so, a total of 256 bits) integers.
 
-First, I'll show off a quick and dirty way of doing this.  In followup articles,
+First, I'll show off a quick and dirty way of doing this.  In follow-up articles,
 I'll showcase more advanced methods.
 
 ## Try it out
@@ -94,12 +94,12 @@ What can we do?  It turns out there is something called a pseudorandom
 permutation.  Remember, a permutation is an ordering of values.  If, for
 example, our domain was $[1,3]$, then a valid permutation would be:
 
-\begin{equation} \{ 1, 2, 3 \} \end{equation}
+\begin{equation} (1, 2, 3) \end{equation}
 
-Other, valid permutations include:
+Other valid permutations include:
 
-\begin{eqnarray} \{ 1, 3, 2 \} \\ \{ 2, 1, 3 \} \\ \{ 2, 3, 1 \} \\ \{ 3, 1, 2
-\} \\ \{ 3, 2, 1 \} \end{eqnarray}
+\begin{eqnarray} (1, 3, 2) \\ (2, 1, 3) \\ (2, 3, 1) \\ (3, 1, 2)
+\\ (3, 2, 1) \end{eqnarray}
 
 If you remember how to count permutations, we are picking 3 values out of 3
 possible values, thus there are $P(3, 3) = \frac{3!}{(3-3)!} = \frac{3!}{0!} =
@@ -112,10 +112,11 @@ with equal likelihood (1/6 of the time).
 ## [Bijective Functions](https://en.wikipedia.org/wiki/Bijection) and [Block Ciphers](https://en.wikipedia.org/wiki/Block_cipher)
 
 It turns out that there are encryption schemes designed to do just this.  At
-its most basic level, a block cipher is a bijective function mapping n-bit
-values into other n-bit values.  Because it is bijective, if you just feed any
-block cipher the previous result and key, it will produce the next value in
-your pseudorandom permutation.
+its most basic level, a block cipher is a bijective function mapping $n$-bit
+values into other $n$-bit values.  Because it is bijective, if you feed a
+counter ($0, 1, 2, \dots$) and a key into a block cipher, each distinct counter
+value produces a distinct output---enumerating the entire space in pseudorandom
+order without repetition.
 
 To refresh ourselves, the definition of a bijective function $f\colon X \to Y$
 is:
@@ -132,11 +133,11 @@ Such a mapping is a valid permutation!  It just so happens that in the 128-bit
 space, a cipher like
 [AES-256](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) is a
 bijective function defined as: $\textsf{AES-}256\colon 128\textsf{-bit} \to
-128\textsf{-bit}$
+128\textsf{-bit}$.
 
 AES-256 is a 128-bit block cipher, meaning it maps all 128-bit strings into all
 128-bit strings without repetition---otherwise we couldn't encrypt all possible
-values.  If you were wondering why is it called AES-256 and not AES-128, the
+values.  If you were wondering why it is called AES-256 and not AES-128, the
 256 in its abbreviated name refers to the key size---not the block size.
 
 To generate a random permutation over an arbitrary range $[0, M)$ up to the
@@ -148,7 +149,8 @@ walking (FFSEM).
     4 Neon in **Zig** because Zig has native 128-bit integer support (`u128`)
     and is a simple systems programming language with an easier learning curve
     compared to Rust.  It also compiles directly to a tiny 12 KB standalone
-    WebAssembly module with no runtime overhead.
+    WebAssembly module with no runtime overhead.  The source code below is
+    released under the **MIT License**.
 
 ```zig
 --8<-- "src/zig-ffsem/ffsem.zig"
@@ -156,11 +158,11 @@ walking (FFSEM).
 
 ## [Format-preserving Encryption](https://en.wikipedia.org/wiki/Format-preserving_encryption) (FPE) and [NIST Standardization](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-38G.pdf)
 
-In a follow up article, I'll extend this idea to arbitrary bit-length strings,
+In a follow-up article, I'll extend this idea to arbitrary bit-length strings,
 and give an overview of new standardization efforts by NIST and the NSA to
 formalize algorithms implementing FPE.
 
 FPE is useful to mask things like credit card numbers, SSNs, zip codes, phone
 numbers, really data where it is useful to retain the _shape_ of the data, but
 not the precise value.  In fact, preserving the precise value may violate
-compliance in scenarios such as HIPAA/HITRUST and PCI- or PA- DSS.
+compliance in scenarios such as HIPAA/HITRUST and PCI-DSS or PA-DSS.
